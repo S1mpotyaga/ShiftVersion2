@@ -7,7 +7,7 @@ public class Parser implements Checkerable{
     private ArrayList<Argument> arguments = new ArrayList<Argument>();
     private ArrayList<String> names = new ArrayList<String>();
 
-    public void getArguments(String[] args){
+    public Parser(String[] args){
         int i = 0;
         while (i < args.length) {
             if (isArgument(args[i])){
