@@ -1,9 +1,12 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 enum Types{
-    STRING("строка"),
-    INTEGER("целое число"),
-    FLOAT("вещественное число");
+    STRING("string"),
+    INTEGER("integer"),
+    FLOAT("float");
 
     private final String name;
 

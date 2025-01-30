@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Parser implements Checkerable{
 
     private ArrayList<Argument> arguments = new ArrayList<Argument>();
-    private ArrayList<String> names = new ArrayList<String>();
+    private ArrayList<String> namesFiles = new ArrayList<String>();
 
     public Parser(String[] args){
         int i = 0;
@@ -18,7 +18,7 @@ public class Parser implements Checkerable{
                 }
                 Argument arg = new Argument(name, value);
             }else if (isFileTxt(args[i])){
-                names.add(args[i]);
+                namesFiles.add(args[i]);
             }
             i++;
         }
@@ -28,7 +28,7 @@ public class Parser implements Checkerable{
         return this.arguments;
     }
 
-    public ArrayList<String> getNames(){
-        return this.names;
+    public ArrayList<String> getNamesFiles(){
+        return this.namesFiles;
     }
 }
