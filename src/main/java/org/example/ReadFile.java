@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 
-public interface ReadFile{
+public interface ReadFile {
 
     void readFile(String name);
 
