@@ -1,8 +1,11 @@
 package org.example;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.io.*;
+import java.util.List;
 
 public class Writer {
 
@@ -42,7 +45,65 @@ public class Writer {
         }
     }
 
-    public static void printStatistic(){
+    public  static List<Double> statisticOfIntegers(ArrayList<String> values){
+        List<Double> currentResult =  Arrays.asList(0D, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        for (String elem : values) {
+            currentResult.set(1, Math.max(currentResult.get(1), Double.parseDouble(elem)));
+            currentResult.set(2,Math.min(currentResult.get(2), Double.parseDouble(elem)));
+            currentResult.set(0, currentResult.get(0) + (double) Long.parseLong(elem));
+        }
+        return currentResult;
+    }
 
+    public static List<Double> statisticOfFloats(ArrayList<String> values){
+        List<Double> currentResult =  Arrays.asList(0D, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        for (String elem : values) {
+            currentResult.set(1, Math.max(currentResult.get(1), Double.parseDouble(elem)));
+            currentResult.set(2,Math.min(currentResult.get(2), Double.parseDouble(elem)));
+            currentResult.set(0, currentResult.get(0) + (double) Double.parseDouble(elem));
+        }
+        return currentResult;
+    }
+
+    public static void statisticOfNumbers(Data dataset, boolean fullStatistic) {
+        long count = dataset.getDataset().get(Types.INTEGER).size() + dataset.getDataset().get(Types.FLOAT).size();
+        List<Double> resFloats = statisticOfFloats(dataset.getDataset().get(Types.FLOAT));
+        List<Double> resIntegers = statisticOfIntegers(dataset.getDataset().get(Types.INTEGER));
+        double mx = Math.max(resFloats.get(1), resIntegers.get(1));
+        double mn = Math.min(resFloats.get(2), resIntegers.get(2));
+        double sum = (double) resFloats.get(0) + (double) resIntegers.get(0);
+        double avg = sum / (double) count;
+        if (fullStatistic) {
+            System.out.printf("A minimal number: %s \nA maximal number: %s \nSum of numbers: %s \nAverage: %s \n", mn, mx, sum, avg);
+        } else {
+            System.out.printf("Count of numbers: %s \n", count);
+        }
+    }
+
+    public static void statisticOfStrings(ArrayList<String> values, boolean fullStatistic) {
+        String mx = "", mn = "";
+        for (String elem : values) {
+            if (elem.length() > mx.length()) {
+                mx = elem;
+            }
+            if (mn.isEmpty() || elem.length() < mn.length()) {
+                mn = elem;
+            }
+        }
+        if (fullStatistic){
+            System.out.printf("Count of strings: %s \nSize of smaller string: %s \nSize of biggest string: %s \n", values.size(), mn.length(), mx.length());
+        }else{
+            System.out.printf("Count of strings: %s \n",values.size());
+        }
+    }
+
+    public static void printStatistic(Data dataset, boolean fullStatistic){
+        Map<Types, ArrayList<String>> values = dataset.getDataset();
+        if (!values.get(Types.INTEGER).isEmpty() || !values.get(Types.FLOAT).isEmpty()){
+            statisticOfNumbers(dataset, fullStatistic);
+        }
+        if (!values.get(Types.STRING).isEmpty()){
+            statisticOfStrings(values.get(Types.STRING), fullStatistic);
+        }
     }
 }

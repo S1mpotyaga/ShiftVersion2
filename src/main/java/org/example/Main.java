@@ -8,5 +8,10 @@ class Main {
         Parser parser = new Parser(args);
         Data dataset = new Data(parser);
         Writer.writer(dataset, parser);
+        boolean fullStatistic = false;
+        if (parser.getArguments().containsKey("f")) {
+            fullStatistic = true;
+        }
+        Writer.printStatistic(dataset, fullStatistic);
     }
 }
